@@ -16,6 +16,10 @@ class AdminController extends Controller
     public function login(Request $request)
     {
         if ($request->isMethod('post')) {
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required',
+            ]);
             $data = $request->all();
             if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
                 return redirect('admin/dashboard');
