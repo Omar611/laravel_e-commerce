@@ -69,10 +69,10 @@
     <!-- ChartJS -->
     <script src="{{ url("plugins/chart.js/Chart.min.js")}}"></script>
     <!-- Sparkline -->
-    <script src="{{ url("plugins/sparklines/sparkline.js")}}"></script>
+    {{-- <script src="{{ url("plugins/sparklines/sparkline.js")}}"></script> --}}
     <!-- JQVMap -->
-    <script src="{{ url("plugins/jqvmap/jquery.vmap.min.js")}}"></script>
-    <script src="{{ url("plugins/jqvmap/maps/jquery.vmap.usa.js")}}"></script>
+    {{-- <script src="{{ url("plugins/jqvmap/jquery.vmap.min.js")}}"></script>
+    <script src="{{ url("plugins/jqvmap/maps/jquery.vmap.usa.js")}}"></script> --}}
     <!-- jQuery Knob Chart -->
     <script src="{{ url("plugins/jquery-knob/jquery.knob.min.js")}}"></script>
     <!-- daterangepicker -->
@@ -90,6 +90,8 @@
     <script src="{{ url("js/admin_js/pages/dashboard.js")}}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ url("js/admin_js/demo.js")}}"></script>
+    {{-- Custom JS for admin --}}
+    <script src="{{asset('js/admin_js/admin_script.js')}}"></script>
 </body>
 
 </html>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -41,5 +42,17 @@ class AdminController extends Controller
     {
         Auth::guard('admin')->logout();
         return redirect('admin/dashboard');
+    }
+
+    public function checkCurrentPassword(Request $request)
+    {
+        $data = $request->all();
+        $admin = Auth::guard('admin')->user();
+        if (Hash::check($data['current_pwd'], $admin->password)){
+
+            return response('Pass Matched');
+        } else {
+            return response('Password is not matched with our records');
+        }
     }
 }

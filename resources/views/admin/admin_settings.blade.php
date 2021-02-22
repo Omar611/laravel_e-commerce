@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item active">Admin Settings</li>
                     </ol>
                 </div><!-- /.col -->
@@ -30,36 +30,37 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form role="form">
+                        <form role="form" method="POST" action="{{url('admin/update-pwd')}}" name="updatePasswordForm"
+                            id="updatePasswordForm">
+                            @csrf
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label>User Name</label>
-                                    <input type="text" class="form-control"
-                                        value="{{ $adminDetails->name }}" placeholder="Enter Your Name">
-                                </div>
+                                {{-- <div class="form-group">
+                                        <label>User Name</label>
+                                        <input type="text" class="form-control" value="{{ $adminDetails->name }}"
+                                    placeholder="Enter Your Name" name="admin_name" id="admin_name">
+                                </div> --}}
                                 <div class="form-group">
                                     <label>Email address</label>
-                                    <input readonly class="form-control"
-                                        value="{{  $adminDetails->email }}">
+                                    <input readonly class="form-control" value="{{  $adminDetails->email }}">
                                 </div>
                                 <div class="form-group">
                                     <label>User Type</label>
-                                    <input readonly class="form-control"
-                                        value="{{  $adminDetails->type }}">
+                                    <input readonly class="form-control" value="{{  $adminDetails->type }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Current Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1"
+                                    <input type="password" class="form-control" name="current_pwd" id="current_pwd"
                                         placeholder="Enter Password">
+                                    <span class="text-danger" id="check-pass"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">New Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1"
+                                    <input type="password" class="form-control" name="new_pwd" id="new_pwd"
                                         placeholder="Enter New Password">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Confirm Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1"
+                                    <input type="password" class="form-control" name="confirm_pwd" id="confirm_pwd"
                                         placeholder="Confirm New Password">
                                 </div>
                                 <div class="form-check">
