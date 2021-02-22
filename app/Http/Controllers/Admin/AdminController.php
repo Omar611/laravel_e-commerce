@@ -13,6 +13,12 @@ class AdminController extends Controller
         return view('admin.admin_dashboard');
     }
 
+    public function settings()
+    {
+        $adminDetails = Auth::guard('admin')->user();
+        return view('admin.admin_settings', compact('adminDetails'));
+    }
+
     public function login(Request $request)
     {
         if ($request->isMethod('post')) {
