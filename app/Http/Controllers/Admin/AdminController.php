@@ -59,15 +59,16 @@ class AdminController extends Controller
 
     public function updateCurrentPassword(Request $request)
     {
-        $request->validate([
+        $rules = [
             'current_pwd' => 'required',
             'new_pwd' => 'required|confirmed',
-        ], [
+        ];
+        $customMessages =  [
             'current_pwd.required' => 'Please enter password',
             'new_pwd.required' => 'Please enter new',
             'new_pwd.confirmed' => '"New Password" and "Password Confirmation" must match',
-        ]);
-
+        ];
+        $request->validate($rules,  $customMessages);
         $data = $request->all();
         $admin = Auth::guard('admin')->user();
         //Check if pass is correct
@@ -80,5 +81,35 @@ class AdminController extends Controller
         } else {
             return redirect()->back()->with('error', 'You\'ve Entered an incorrect Current Password');
         }
+    }
+
+    public function updateAdminDetails(Request $request)
+    {
+        $adminDetails = Auth::guard('admin')->user();
+
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+
+            $rules = [
+                'admin_name' => 'required|regex:/^[\pL\s\-]+$/u',
+                'email' => 'required|email',
+                'mobile' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
+            ];
+            $customMessages =  [
+                'admin_name.required' => 'Admin name is required',
+                'admin_name.regex' => 'Admin Name must contain letters and spaces only',
+                'mobile.regex' => 'Invalid Mobile Number',
+            ];
+            $request->validate($rules,  $customMessages);
+            Admin::find($adminDetails->id)->update([
+                'name' => $data['admin_name'],
+                'email' => $data['email'],
+                'mobile' => $data['mobile'],
+            ]);
+
+            return redirect(url('admin/update-admin-details'))->with('success', 'Details Updated Successfully');
+        }
+
+        return view('admin.admin_details', compact('adminDetails'));
     }
 }

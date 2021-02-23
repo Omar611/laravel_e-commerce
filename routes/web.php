@@ -36,6 +36,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('check-current-pwd', 'AdminController@checkCurrentPassword');
         Route::post('update-current-pwd', 'AdminController@updateCurrentPassword');
         Route::get('logout', 'AdminController@logout');
-
+        Route::match(['get', 'post'], 'update-admin-details', 'AdminController@updateAdminDetails');
     });
 });
