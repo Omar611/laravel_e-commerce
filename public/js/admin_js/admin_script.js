@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    // Start Check inputed Admin current password in form
     $('#check-pass').fadeOut();
     $('#current_pwd').blur(function () {
         var token = $("#updatePasswordForm > input[type=hidden]").val();
@@ -38,5 +40,22 @@ $(document).ready(function () {
                 .text("Please enter password");
         }
     })
+    // End Check inputed Admin current password in form
+
+    // Start Preview Admin Image before upload
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#output').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+    $("#admin_image").change(function () {
+        readURL(this);
+    });
+    // End Preview Admin Image before upload
+
 
 })

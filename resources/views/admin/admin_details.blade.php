@@ -48,7 +48,7 @@
                     <!-- /.card-header -->
                     <!-- form start -->
                     <form role="form" method="POST" action="{{url('admin/update-admin-details')}}"
-                        name="updatePasswordForm" id="updatePasswordForm">
+                        name="updatePasswordForm" id="updatePasswordForm" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
@@ -78,7 +78,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Image</label>
-                                <input type="file" class="form-control" name="admin_image" id="admin_image">
+                                <input type="file" accept="image/*" class="form-control" name="admin_image"
+                                    id="admin_image" onchange="loadFile(event)">
+                                <img src="{{asset($adminDetails->image)}}" alt="" class="m-3" id="output" width="200px">
+                                @error('admin_image')
+                                <div class="text-danger">{{$message}}</div>
+                                @enderror
+                                @if ($adminDetails->image)
+                                <input type="hidden" name="current_admin_image">
+                                @endif
                             </div>
                         </div>
                         <!-- /.card-body -->

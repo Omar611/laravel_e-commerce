@@ -8,6 +8,7 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Image;
 
 class AdminController extends Controller
 {
@@ -94,6 +95,7 @@ class AdminController extends Controller
                 'admin_name' => 'required|regex:/^[\pL\s\-]+$/u',
                 'email' => 'required|email',
                 'mobile' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
+                'admin_image' => 'image',
             ];
             $customMessages =  [
                 'admin_name.required' => 'Admin name is required',
@@ -101,10 +103,25 @@ class AdminController extends Controller
                 'mobile.regex' => 'Invalid Mobile Number',
             ];
             $request->validate($rules,  $customMessages);
+
+            $admin_image = $request->file('admin_image');
+
+            $name_hex = hexdec(uniqid()); //will generate a unique hexcode
+            $img_ext = strtolower($admin_image->getClientOriginalExtension());
+
+            $img_name = $name_hex . '.' . $img_ext;
+            $upload_location = 'images/admin_images/admin_photos/';
+            $img_src = $upload_location . $img_name;
+
+            // $admin_image->move($upload_location, $img_name);
+            // Image::make($admin_image)->resize(300, 200)->save($img_src);
+            Image::make($admin_image)->save($img_src);
+
             Admin::find($adminDetails->id)->update([
                 'name' => $data['admin_name'],
                 'email' => $data['email'],
                 'mobile' => $data['mobile'],
+                'image' => $img_src,
             ]);
 
             return redirect(url('admin/update-admin-details'))->with('success', 'Details Updated Successfully');

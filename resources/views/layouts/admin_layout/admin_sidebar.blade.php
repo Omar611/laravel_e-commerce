@@ -11,7 +11,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ url("images/admin_images/user2-160x160.jpg")}}" class="img-circle elevation-2"
+                <img src="{{asset(Auth::guard('admin')->user()->image)}}" class="img-circle elevation-2"
                     alt="User Image">
             </div>
             <div class="info">
@@ -43,15 +43,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{url('admin/settings')}}"
-                                class="nav-link {{ (request()->is('admin/settings')) ? 'active' : '' }}">
+                            <a href="{{url('admin/update-admin-details')}}"
+                                class="nav-link {{ (request()->is('admin/update-admin-details')) ? 'active' : '' }}">
                                 <i class="fas fa-user-cog"></i>
                                 <p>Update Admin Details</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('admin/update-admin-details')}}"
-                                class="nav-link {{ (request()->is('admin/update-admin-details')) ? 'active' : '' }}">
+                            <a href="{{url('admin/settings')}}"
+                                class="nav-link {{ (request()->is('admin/settings')) ? 'active' : '' }}">
                                 <i class="fas fa-key"></i>
                                 <p>Update Password</p>
                             </a>
