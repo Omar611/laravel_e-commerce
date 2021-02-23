@@ -12,12 +12,12 @@ $(document).ready(function () {
                     current_pwd: current_pwd,
                 },
                 success: function (res) {
-                    if (res !== "Pass Matched") {
+                    if (res !== "1") {
                         $('#check-pass')
                             .fadeIn()
                             .addClass('text-danger')
                             .removeClass('text-success')
-                            .text(res);
+                            .text('Password is not matched with our records');
                     } else {
                         $('#check-pass')
                             .fadeIn()
