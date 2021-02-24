@@ -40,9 +40,9 @@
                                     <th>Discount</th>
                                     <th>Description</th>
                                     <th>URL</th>
-                                    <th>Meta Title</th>
+                                    {{-- <th>Meta Title</th>
                                     <th>Meta Description</th>
-                                    <th>Meta Keywords</th>
+                                    <th>Meta Keywords</th> --}}
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -57,9 +57,9 @@
                                     <td>{{$category->category_discount}}</td>
                                     <td>{{$category->description}}</td>
                                     <td>{{$category->url}}</td>
-                                    <td>{{$category->meta_title}}</td>
+                                    {{-- <td>{{$category->meta_title}}</td>
                                     <td>{{$category->meta_description}}</td>
-                                    <td>{{$category->meta_keywords}}</td>
+                                    <td>{{$category->meta_keywords}}</td> --}}
                                     <td>
                                         <a href="javascript:void(0)" id="category-{{$category->id}}"
                                             category_id="{{$category->id}}"

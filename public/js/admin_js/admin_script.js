@@ -89,4 +89,31 @@ $(document).ready(function () {
     });
     // End update Sections status
 
+    // Start update Categories status
+    $(".updateCategoryStatus").click(function () {
+        var status = $(this).text();
+        var category_id = $(this).attr('category_id');
+        console.log(status, category_id);
+        var id = $(this).attr('id');
+        $.ajax({
+            type: "post",
+            url: "/admin/update-category-status",
+            data: {
+                status: status,
+                category_id: category_id
+            },
+            success: function (res) {
+                if (res == 0) {
+                    $("#" + id).text("Inactive").addClass("text-danger").removeClass("text-success");
+                } else {
+                    $("#" + id).text("Active").addClass("text-success").removeClass("text-danger");
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+    // End update Categories status
+
 })

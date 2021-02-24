@@ -13,4 +13,13 @@ class CategoryController extends Controller
         $categories = Category::all();
         return view('admin.categories.categories', compact('categories'));
     }
+
+    public function updateCategory(Request $request)
+    {
+        $status = $request->status == "Active" ? 0 : 1;
+        Category::find($request->category_id)->update([
+            'status' => $status,
+        ]);
+        return response($status);
+    }
 }
