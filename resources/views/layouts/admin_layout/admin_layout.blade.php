@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="{{ url("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css")}}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ url("plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="{{ url("plugins/jqvmap/jqvmap.min.css")}}">
+    {{-- <!-- JQVMap -->
+    <link rel="stylesheet" href="{{ url("plugins/jqvmap/jqvmap.min.css")}}"> --}}
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ url("css/admin_css/adminlte.min.css")}}">
     <!-- overlayScrollbars -->
@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="{{ url("plugins/summernote/summernote-bs4.css")}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ url("plugins/datatables-bs4/css/dataTables.bootstrap4.css")}}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -92,6 +94,9 @@
     <script src="{{ url("js/admin_js/demo.js")}}"></script>
     {{-- Custom JS for admin --}}
     <script src="{{asset('js/admin_js/admin_script.js')}}"></script>
+    <!-- DataTables -->
+    <script src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
 </body>
 
 </html>

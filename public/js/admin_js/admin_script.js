@@ -57,5 +57,10 @@ $(document).ready(function () {
     });
     // End Preview Admin Image before upload
 
+    // Start Shop Sections DataTable
+    $(function () {
+        $("#sections").DataTable();
+    });
+    // End Shop Sections DataTable
 
 })
