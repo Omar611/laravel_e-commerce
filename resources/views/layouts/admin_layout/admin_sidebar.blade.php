@@ -75,23 +75,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('admin/settings')}}"
-                                class="nav-link {{ (request()->is('admin/settings')) ? 'active' : '' }}">
+                            <a href="{{url('admin/categories')}}"
+                                class="nav-link {{ (request()->is('admin/categories')) ? 'active' : '' }}">
                                 <i class="fas fa-th-list"></i>
                                 <p>Categories</p>
                             </a>
                         </li>
                     </ul>
-                </li>
-                <li class="nav-header">EXAMPLES</li>
-                <li class="nav-item">
-                    <a href="pages/calendar.html" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt"></i>
-                        <p>
-                            Calendar
-                            <span class="badge badge-info right">2</span>
-                        </p>
-                    </a>
                 </li>
             </ul>
         </nav>
