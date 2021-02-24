@@ -63,4 +63,30 @@ $(document).ready(function () {
     });
     // End Shop Sections DataTable
 
+    // Start update Sections status
+    $(".updateSectionStatus").click(function () {
+        var status = $(this).text();
+        var section_id = $(this).attr('section_id');
+        var id = $(this).attr('id');
+        $.ajax({
+            type: "post",
+            url: "/admin/update-section-status",
+            data: {
+                status: status,
+                section_id: section_id
+            },
+            success: function (res) {
+                if (res == 0) {
+                    $("#" + id).text("Inactive").addClass("text-danger").removeClass("text-success");
+                } else {
+                    $("#" + id).text("Active").addClass("text-success").removeClass("text-danger");
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+    // End update Sections status
+
 })

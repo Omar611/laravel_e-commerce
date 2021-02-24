@@ -40,6 +40,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         // Sections
         Route::get('sections', 'SectionController@sections');
+        Route::post('update-section-status', 'SectionController@updateSections');
 
     });
 });

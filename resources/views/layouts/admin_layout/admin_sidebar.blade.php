@@ -58,6 +58,31 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-list"></i>
+                        <p>
+                            Catalogues
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{url('admin/sections')}}"
+                                class="nav-link {{ (request()->is('admin/sections')) ? 'active' : '' }}">
+                                <i class="fas fa-layer-group"></i>
+                                <p>Sections</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('admin/settings')}}"
+                                class="nav-link {{ (request()->is('admin/settings')) ? 'active' : '' }}">
+                                <i class="fas fa-th-list"></i>
+                                <p>Categories</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-header">EXAMPLES</li>
                 <li class="nav-item">
                     <a href="pages/calendar.html" class="nav-link">

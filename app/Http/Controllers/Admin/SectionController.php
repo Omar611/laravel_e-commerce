@@ -13,4 +13,13 @@ class SectionController extends Controller
         $sections = Section::all();
         return view('admin.sections.sections', compact('sections'));
     }
+
+    public function updateSections(Request $request)
+    {
+        $status = $request->status == "Active" ? 0 : 1;
+        Section::find($request->section_id)->update([
+            'status' => $status,
+        ]);
+        return response($status);
+    }
 }
