@@ -77,9 +77,12 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Image</label>
-                                <input type="file" accept="image/*" class="form-control" name="admin_image"
-                                    id="admin_image" onchange="loadFile(event)">
+                                <label for="exampleInputPassword1">Admin Image</label>
+                                <div class="custom-file">
+                                    <input type="file" accept="image/*" class="custom-file-input" name="admin_image"
+                                        id="upload_image" onchange="loadFile(event)">
+                                    <label class="custom-file-label" for="customFile">Choose Admin Image</label>
+                                </div>
                                 <img src="{{asset($adminDetails->image)}}" alt="" class="m-3" id="output" width="200px">
                                 @error('admin_image')
                                 <div class="text-danger">{{$message}}</div>
