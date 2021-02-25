@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Section;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -21,5 +22,20 @@ class CategoryController extends Controller
             'status' => $status,
         ]);
         return response($status);
+    }
+
+    public function addEditCategory(Request $request, $id = null)
+    {
+        if ($id == null) {
+            $title = "Add Category";
+
+        } else {
+            $title = "Add Category";
+
+        }
+
+        $sections = Section::all();
+
+        return view('admin.categories.add_edit_category', compact('title', 'sections'));
     }
 }

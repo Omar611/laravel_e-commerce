@@ -50,9 +50,10 @@ $(document).ready(function () {
                 $('#output').attr('src', e.target.result);
             }
             reader.readAsDataURL(input.files[0]); // convert to base64 string
+            // $('#output').slideDown(800);
         }
     }
-    $("#admin_image").change(function () {
+    $("#upload_image").change(function () {
         readURL(this);
     });
     // End Preview Admin Image before upload
@@ -115,5 +116,11 @@ $(document).ready(function () {
         });
     });
     // End update Categories status
+
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+
+
 
 })
