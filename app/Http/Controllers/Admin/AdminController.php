@@ -104,18 +104,29 @@ class AdminController extends Controller
             ];
             $request->validate($rules,  $customMessages);
 
-            $admin_image = $request->file('admin_image');
+            if ($request->hasFile('admin_image')) {
 
-            $name_hex = hexdec(uniqid()); //will generate a unique hexcode
-            $img_ext = strtolower($admin_image->getClientOriginalExtension());
+                $admin_image = $request->file('admin_image');
 
-            $img_name = $name_hex . '.' . $img_ext;
-            $upload_location = 'images/admin_images/admin_photos/';
-            $img_src = $upload_location . $img_name;
+                $name_hex = hexdec(uniqid()); //will generate a unique hexcode
+                $img_ext = strtolower($admin_image->getClientOriginalExtension());
 
-            // $admin_image->move($upload_location, $img_name);
-            // Image::make($admin_image)->resize(300, 200)->save($img_src);
-            Image::make($admin_image)->save($img_src);
+                $img_name = $name_hex . '.' . $img_ext;
+                $upload_location = 'images/admin_images/admin_photos/';
+                $img_src = $upload_location . $img_name;
+
+                // $admin_image->move($upload_location, $img_name);
+                // Image::make($admin_image)->resize(300, 200)->save($img_src);
+                Image::make($admin_image)->save($img_src);
+
+                if (isset($data['current_admin_image'])) {
+                    unlink($data['current_admin_image']);
+                }
+            } elseif (isset($data['current_admin_image'])) {
+                $img_src = $data['current_admin_image'];
+            } else {
+                $img_src = '';
+            }
 
             Admin::find($adminDetails->id)->update([
                 'name' => $data['admin_name'],

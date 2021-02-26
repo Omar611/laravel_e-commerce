@@ -88,7 +88,7 @@
                                 <div class="text-danger">{{$message}}</div>
                                 @enderror
                                 @if ($adminDetails->image)
-                                <input type="hidden" name="current_admin_image">
+                                <input type="hidden" name="current_admin_image" value="{{$adminDetails->image}}">
                                 @endif
                             </div>
                         </div>
