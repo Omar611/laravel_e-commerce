@@ -121,6 +121,32 @@ $(document).ready(function () {
     $('.select2').select2()
 
 
-
+    // Start Append Category Level
+    $("#section_id").change(function () {
+        var section_id = $(this).val();
+        $.ajax({
+            type: "post",
+            url: "/admin/append-categories-level",
+            data: {
+                section_id: section_id,
+            },
+            success: function (res) {
+                console.log(res);
+                $('#parent_id').html(`<option selected="selected" value="0">Main Category</option>`)
+                res.forEach(cat => {
+                    $('#parent_id').append(`<option value="${cat.id}">${cat.category_name}</option>`)
+                    if (cat.subcategories) {
+                        cat.subcategories.forEach(subcat => {
+                            $('#parent_id').append(`<option value="${subcat.id}"> --- ${subcat.category_name}</option>`)
+                        })
+                    }
+                });
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+    // End Append Category Level
 
 })

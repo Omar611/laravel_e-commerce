@@ -53,7 +53,7 @@
                                     <td>{{$category->id}}</td>
                                     <td>{{$category->category_name}}</td>
                                     <td>
-                                        <img src="{{$category->category_image}}" alt="">
+                                        <img src="{{asset($category->category_image)}}" width="100px" alt="">
                                     </td>
                                     <td>{{$category->category_discount}}</td>
                                     <td>{{$category->description}}</td>

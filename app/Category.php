@@ -19,4 +19,9 @@ class Category extends Model
         'meta_keywords',
         'status',
     ];
+
+    public function subcategories()
+    {
+        return $this->hasMany('App\Category', "parent_id")->where('status', 1);
+    }
 }
