@@ -143,14 +143,19 @@
                                     <label>Category Image</label>
                                     <div class="custom-file">
                                         <input type="file" accept="image/*" class="custom-file-input"
-                                            name="category_image" id="upload_image" onchange="loadFile(event)"
-                                            value="{{isset($categoryData->category_image) ? $categoryData->category_image : ""}}">
+                                            name="category_image" id="upload_image" onchange="loadFile(event)">
                                         <label class="custom-file-label" for="customFile">Choose Category Image</label>
-                                        <input type="hidden" name="current_category_image"
+                                        <input type="hidden" id="old_img" name="current_category_image"
                                             value="{{isset($categoryData->category_image) ? $categoryData->category_image : ""}}">
                                     </div>
                                     <img src="{{isset($categoryData->category_image) ? asset($categoryData->category_image) : ""}}"
                                         alt="" class="m-3" id="output" width="200px">
+                                    <span>
+                                        <a href="" class="text-danger" cat-id="{{isset($categoryData->id) ? $categoryData->id : ""}}"
+                                            id="delete_image">Delete
+                                            Image</a>
+                                        <p class="text-success" id="deleted_message" style="display: none"></p>
+                                    </span>
                                 </div>
                                 <!-- /.form-group -->
                             </div>

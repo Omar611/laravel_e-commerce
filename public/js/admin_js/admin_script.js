@@ -55,6 +55,7 @@ $(document).ready(function () {
     }
     $("#upload_image").change(function () {
         readURL(this);
+        $("#deleted_message").fadeOut();
     });
     // End Preview Admin Image before upload
 
@@ -149,4 +150,31 @@ $(document).ready(function () {
     });
     // End Append Category Level
 
+    // Start Delete Category Image
+    if(!$("#old_img").val()){
+        $("#delete_image").fadeOut(0);
+    }
+    $("#delete_image").click(function (e) {
+        e.preventDefault();
+        var id = $(this).attr('cat-id');
+        var img = $("#old_img").val();
+        $.ajax({
+            type: "post",
+            url: "/admin/delete-category-image",
+            data: {
+                id: id,
+                img: img
+            },
+            success: function (res) {
+                $('#output').attr("src", "");
+                $("#delete_image").fadeOut();
+                $("#deleted_message").text("Image Deleted Successfully").slideDown();
+                $("#old_img").remove();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+    // End Delete Category Image
 })

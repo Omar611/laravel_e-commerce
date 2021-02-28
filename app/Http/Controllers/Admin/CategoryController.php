@@ -89,7 +89,7 @@ class CategoryController extends Controller
                 if ($request->current_category_image) {
                     unlink($request->current_category_image);
                 }
-            } elseif ($request->current_category_image) {
+            } elseif ($request->current_category_image && $request->current_category_image != "") {
                 $img_src = $request->current_category_image;
             } else {
                 $img_src = '';
@@ -124,5 +124,11 @@ class CategoryController extends Controller
         ])->get();
         // return view('admin.categories.append_categories_level', compact('categories'));
         return response($categories);
+    }
+    public function deleteCategoryImg(Request $request)
+    {
+        Category::find($request->id)->update(['category_image' => ""]);
+        unlink($request->img);
+        return response("Image Deleted");
     }
 }
