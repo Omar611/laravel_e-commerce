@@ -79,10 +79,14 @@
                                     <td>{{$category->category_discount}}</td>
                                     <td>{{$category->description}}</td>
                                     <td>{{$category->url}}</td>
-                                    <td><a href="{{url('admin/add-edit-category/' . $category->id)}}">Edit</a></td>
                                     {{-- <td>{{$category->meta_title}}</td>
                                     <td>{{$category->meta_description}}</td>
                                     <td>{{$category->meta_keywords}}</td> --}}
+                                    <td>
+                                        <a href="{{url('admin/add-edit-category/' . $category->id)}}">Edit</a>
+                                        &nbsp;&nbsp;
+                                        <a class="text-danger" href="{{url('admin/delete-category/' . $category->id)}}">Delete</a>
+                                    </td>
                                     <td>
                                         <a href="javascript:void(0)" id="category-{{$category->id}}"
                                             category_id="{{$category->id}}"

@@ -131,4 +131,12 @@ class CategoryController extends Controller
         unlink($request->img);
         return response("Image Deleted");
     }
+    public function deleteCategory(Request $request)
+    {
+        $category = Category::find($request->id);
+        if ($category->category_image)
+            unlink($category->category_image);
+        $category->delete();
+        return redirect()->back()->with("success", "Category Deleted Successfully");
+    }
 }
