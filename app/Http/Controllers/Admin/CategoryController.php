@@ -12,7 +12,10 @@ class CategoryController extends Controller
 {
     public function categories()
     {
-        $categories = Category::all();
+        $categories = Category::with(['section' => function ($q) {
+            $q->select('id', 'name');
+        }, 'parent_category'])->get();
+        $categories = json_decode((json_encode($categories)));
         return view('admin.categories.categories', compact('categories'));
     }
 
@@ -33,7 +36,15 @@ class CategoryController extends Controller
             $title = "Add Category";
             $category = new Category();
         } else {
-            $title = "Add Category";
+            $title = "Edit Category";
+            $categoryData = Category::find($id);
+            $categoriesDropdown = Category::with('subcategories')->where([
+                'section_id' => $categoryData['section_id'],
+                'parent_id' => 0,
+                'status' => 1,
+            ])->get();
+
+            $category = Category::find($id);
         }
         if ($request->isMethod('POST')) {
             $rules = [
@@ -75,6 +86,11 @@ class CategoryController extends Controller
                 $img_src = $upload_location . $img_name;
 
                 Image::make($category_image)->save($img_src);
+                if ($request->current_category_image) {
+                    unlink($request->current_category_image);
+                }
+            } elseif ($request->current_category_image) {
+                $img_src = $request->current_category_image;
             } else {
                 $img_src = '';
             }
@@ -82,12 +98,21 @@ class CategoryController extends Controller
 
             $category->save();
 
-            return view('admin.categories.add_edit_category')
-                ->with(compact('title', 'sections'))
-                ->with('success', "Category Added Successfully!");
+            $categories = Category::with(['section' => function ($q) {
+                $q->select('id', 'name');
+            }, 'parent_category'])->get();
+            if (isset($categoryData)) {
+                return redirect("admin/categories")->with('success', "Category <strong>" . $data['category_name'] . "</strong> Edited Successfully!");
+            } else {
+                return redirect("admin/categories")->with('success', "Category <strong>" . $data['category_name'] . "</strong> Added Successfully!");
+            }
         }
 
-        return view('admin.categories.add_edit_category', compact('title', 'sections'));
+        if (isset($categoryData)) {
+            return view('admin.categories.add_edit_category', compact('title', 'sections', 'categoryData', 'categoriesDropdown'));
+        } else {
+            return view('admin.categories.add_edit_category', compact('title', 'sections'));
+        }
     }
     public function appendCategoryLevel(Request $request)
     {

@@ -22,6 +22,14 @@ class Category extends Model
 
     public function subcategories()
     {
-        return $this->hasMany('App\Category', "parent_id")->where('status', 1);
+        return $this->hasMany('App\Category', "parent_id", 'id')->where('status', 1);
+    }
+
+    public function section() {
+        return $this->belongsTo('App\Section', 'section_id');
+    }
+
+    public function parent_category(){
+        return $this->belongsTo('App\Category', "parent_id");
     }
 }

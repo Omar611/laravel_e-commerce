@@ -20,7 +20,18 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-
+    @if (session('success'))
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {!! session('success') !!}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    @endif
     <!-- Main content -->
     <section class="content">
         <div class="row">
@@ -28,7 +39,8 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Categories</h3>
-                        <a href="{{url('admin/add-edit-category')}}" class="btn btn-primary float-right">Add Category</a>
+                        <a href="{{url('admin/add-edit-category')}}" class="btn btn-primary float-right">Add
+                            Category</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -36,7 +48,9 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
+                                    <th>Category Name</th>
+                                    <th>Parent Category</th>
+                                    <th>Section Name</th>
                                     <th>Category Image</th>
                                     <th>Discount</th>
                                     <th>Description</th>
@@ -44,6 +58,7 @@
                                     {{-- <th>Meta Title</th>
                                     <th>Meta Description</th>
                                     <th>Meta Keywords</th> --}}
+                                    <th>Action</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -52,12 +67,19 @@
                                 <tr>
                                     <td>{{$category->id}}</td>
                                     <td>{{$category->category_name}}</td>
+                                    @if ($category->parent_category)
+                                    <td>{{$category->parent_category->category_name}}</td>
+                                    @else
+                                    <td>Root</td>
+                                    @endif
+                                    <td>{{$category->section->name}}</td>
                                     <td>
                                         <img src="{{asset($category->category_image)}}" width="100px" alt="">
                                     </td>
                                     <td>{{$category->category_discount}}</td>
                                     <td>{{$category->description}}</td>
                                     <td>{{$category->url}}</td>
+                                    <td><a href="{{url('admin/add-edit-category/' . $category->id)}}">Edit</a></td>
                                     {{-- <td>{{$category->meta_title}}</td>
                                     <td>{{$category->meta_description}}</td>
                                     <td>{{$category->meta_keywords}}</td> --}}
