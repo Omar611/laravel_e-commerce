@@ -10,7 +10,8 @@ class ProductController extends Controller
 {
     public function products()
     {
-        $products = Product::all();
+        $products = Product::with(['category', 'section'])->get();
+        // dd($products);
         return view('admin.products.products', compact('products'));
     }
 

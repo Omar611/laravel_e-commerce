@@ -51,6 +51,8 @@
                                     <th>Product Name</th>
                                     <th>Product Code</th>
                                     <th>Product Color</th>
+                                    <th>Product Category</th>
+                                    <th>Product Section</th>
                                     <th>Action</th>
                                     <th>Status</th>
                                 </tr>
@@ -62,6 +64,8 @@
                                     <td>{{$product->product_name}}</td>
                                     <td>{{$product->product_code}}</td>
                                     <td>{{$product->product_color}}</td>
+                                    <td>{{$product->category->category_name}}</td>
+                                    <td>{{$product->section->name}}</td>
                                     <td>
                                         <a href="{{url('admin/add-edit-product/' . $product->id)}}">Edit</a>
                                         &nbsp;&nbsp;
