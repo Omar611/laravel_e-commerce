@@ -13,7 +13,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Categories</li>
+                        <li class="breadcrumb-item active">Products</li>
                     </ol>
                 </div>
             </div>
@@ -22,9 +22,9 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <form name="categoryForm" id="categoryForm" @if (isset($categoryData))
-                action="{{url("/admin/add-edit-category/".$categoryData->id)}}" @else
-                action="{{url("/admin/add-edit-category")}}" @endif enctype="multipart/form-data" method="POST">
+            <form name="productForm" id="productForm" @if (isset($productData))
+                action="{{url("/admin/add-edit-product/".$productData->id)}}" @else
+                action="{{url("/admin/add-edit-product")}}" @endif enctype="multipart/form-data" method="POST">
                 @csrf
                 <div class="card card-default">
                     <div class="card-header">
@@ -35,33 +35,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Category Name</label>
-                                    <input name="category_name" id="category_name" type="text" class="form-control"
-                                        placeholder="Enter Category Name"
-                                        value="{{isset($categoryData->category_name) ? $categoryData->category_name : old("category_name")}}">
-                                    @error('category_name')
-                                    <div class="text-danger">{{$message}}</div>
-                                    @enderror
-                                </div>
-                                <!-- /.form-group -->
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Select Section</label>
-                                    <select name="section_id" id="section_id" class="form-control select2"
+                                    <label>Select Category</label>
+                                    <select name="category_id" id="category_id" class="form-control select2"
                                         style="width: 100%;">
-                                        <option @if (!isset($categoryData->section_id))
+                                        <option @if (!isset($productData->section_id))
                                             selected="selected"
                                             @endif disabled>Select</option>
-                                        @foreach ($sections as $section)
-                                        <option value="{{$section->id}}" @if (isset($categoryData->section_id) &&
-                                            $categoryData->section_id == $section->id)
-                                            selected ="selected"
-                                            @endif>{{$section->name}}</option>
-                                        @endforeach
                                     </select>
                                     @error('section_id')
                                     <div class="text-danger">{{$message}}</div>
@@ -69,55 +48,39 @@
                                 </div>
                                 <!-- /.form-group -->
                             </div>
-                            <!-- /.col -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Select Category Level</label>
-                                    <select name="parent_id" id="parent_id" class="form-control select2"
-                                        style="width: 100%;">
-                                        <option selected="selected" value="0">Main Category</option>
-                                        @isset($categoriesDropdown)
-                                        @foreach ($categoriesDropdown as $catdd)
-                                        <option value="{{$catdd->id}}" @if (isset($categoryData->parent_id) &&
-                                            $categoryData->parent_id == $catdd->id)
-                                            selected ="selected"
-                                            @endif>{{$catdd->category_name}}</option>
-                                        @foreach ($catdd->subcategories as $subcategory)
-                                        <option value="{{$subcategory->id}}" @if (isset($categoryData->parent_id) &&
-                                            $categoryData->parent_id == $subcategory->id)
-                                            selected ="selected"
-                                            @endif>---{{$subcategory->category_name}}</option>
-                                        @endforeach
-                                        @endforeach
-                                        @endisset
-                                    </select>
-                                </div>
-                                <!-- /.Category Level -->
-                                @error('parent_id')
-                                <div class="text-danger">{{$message}}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <!-- /.row -->
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label>Category Discount</label>
-                                    <input type="number" min="0" step="0.5" name="category_discount"
-                                        id="category_discount" class="form-control"
-                                        placeholder="Enter Category discount"
-                                        value="{{isset($categoryData->category_discount) ? $categoryData->category_discount : old("category_discount")}}">
+                                    <label>Product Name</label>
+                                    <input name="product_name" id="product_name" type="text" class="form-control"
+                                        placeholder="Enter Product Name"
+                                        value="{{isset($productData->product_name) ? $productData->product_name : old("product_name")}}">
+                                    @error('product_name')
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
                                 </div>
                                 <!-- /.form-group -->
                             </div>
-                            <!-- /.col -->
-                            <div class="col-12 col-sm-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Category URL</label>
-                                    <input type="text0" name="category_url" id="category_url" class="form-control"
-                                        placeholder="Enter Category url"
-                                        value="{{isset($categoryData->url) ? $categoryData->url : old("category_url")}}">
-                                    @error('category_url')
+                                    <label>Product Code</label>
+                                    <input name="product_code" id="product_code" type="text" class="form-control"
+                                        placeholder="Enter Product Code"
+                                        value="{{isset($productData->product_code) ? $productData->product_code : old("product_code")}}">
+                                    @error('product_code')
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Product Color</label>
+                                    <input name="product_color" id="product_color" type="text" class="form-control"
+                                        placeholder="Enter Product Color"
+                                        value="{{isset($productData->product_color) ? $productData->product_color : old("product_color")}}">
+                                    @error('product_color')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
                                 </div>
@@ -129,33 +92,173 @@
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
-                                    <label>Category Description</label>
-                                    <textarea name="category_desc" id="category_desc" cols="20" rows="5"
-                                        class="form-control"
-                                        placeholder="Enter Category description">{{isset($categoryData->description) ? $categoryData->description : old("category_desc")}}
-                                    </textarea>
+                                    <label>Product Price</label>
+                                    <input ttype="number" min="0" step="0.01" name="product_price" id="product_price"
+                                        class="form-control" placeholder="Enter Product Price"
+                                        value="{{isset($productData->price) ? $productData->price : old("product_price")}}">
+                                    @error('product_price')
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
                                 </div>
                                 <!-- /.form-group -->
                             </div>
                             <!-- /.col -->
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
-                                    <label>Category Image</label>
+                                    <label>Product Discount</label>
+                                    <input type="number" min="0" step="0.5" name="product_discount"
+                                        id="product_discount" class="form-control" placeholder="Enter Product discount"
+                                        value="{{isset($productData->product_discount) ? $productData->product_discount : old("product_discount")}}">
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Product Pattern</label>
+                                    <input name="pattern" id="pattern" type="text" class="form-control"
+                                        placeholder="Enter Product Code"
+                                        value="{{isset($productData->pattern) ? $productData->pattern : old("pattern")}}">
+                                    @error('pattern')
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Product Fabric</label>
+                                    <input name="fabric" id="fabric" type="text" class="form-control"
+                                        placeholder="Enter Product Fabric"
+                                        value="{{isset($productData->fabric) ? $productData->fabric : old("fabric")}}">
+                                    @error('fabric')
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Product Sleeve</label>
+                                    <input name="sleev" id="sleev" type="text" class="form-control"
+                                        placeholder="Enter Product Code"
+                                        value="{{isset($productData->sleev) ? $productData->sleev : old("sleev")}}">
+                                    @error('sleev')
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Product Fit</label>
+                                    <input name="fit" id="fit" type="text" class="form-control"
+                                        placeholder="Enter Product Fit"
+                                        value="{{isset($productData->fit) ? $productData->fabric : old("fit")}}">
+                                    @error('fit')
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                        <!-- /.row -->
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Product Weight</label>
+                                    <input ttype="number" min="0" step="0.01" name="product_weight" id="product_weight"
+                                        class="form-control" placeholder="Enter Product Weight"
+                                        value="{{isset($productData->price) ? $productData->price : old("product_weight")}}">
+                                    @error('product_weight')
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Product Occasion</label>
+                                    <input name="ocasion" id="ocasion" type="text" class="form-control"
+                                        placeholder="Enter Product Occasion"
+                                        value="{{isset($productData->ocasion) ? $productData->fabric : old("ocasion")}}">
+                                    @error('ocasion')
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                        </div>
+                        <!-- /.row -->
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Product Description</label>
+                                    <textarea name="product_desc" id="product_desc" cols="20" rows="5"
+                                        class="form-control"
+                                        placeholder="Enter Product description">{{isset($productData->description) ? $productData->description : old("product_desc")}}</textarea>
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Product Image</label>
                                     <div class="custom-file">
                                         <input type="file" accept="image/*" class="custom-file-input"
-                                            name="category_image" id="upload_image" onchange="loadFile(event)">
-                                        <label class="custom-file-label" for="customFile">Choose Category Image</label>
-                                        <input type="hidden" id="old_img" name="current_category_image"
-                                            value="{{isset($categoryData->category_image) ? $categoryData->category_image : ""}}">
+                                            name="product_image" id="upload_image" onchange="loadFile(event)">
+                                        <label class="custom-file-label" for="customFile">Choose Product
+                                            Image</label>
+                                        <input type="hidden" id="old_img" name="current_product_image"
+                                            value="{{isset($productData->product_image) ? $productData->product_image : ""}}">
                                     </div>
-                                    <img src="{{isset($categoryData->category_image) ? asset($categoryData->category_image) : ""}}"
+                                    <img src="{{isset($productData->product_image) ? asset($productData->product_image) : ""}}"
                                         alt="" class="m-3" id="output" width="200px">
                                     <span>
-                                        <a href="" class="text-danger" cat-id="{{isset($categoryData->id) ? $categoryData->id : ""}}"
+                                        <a href="" class="text-danger"
+                                            cat-id="{{isset($productData->id) ? $productData->id : ""}}"
                                             id="delete_image">Delete
                                             Image</a>
                                         <p class="text-success" id="deleted_message" style="display: none"></p>
                                     </span>
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                        <!-- /.row -->
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Product Wash Care</label>
+                                    <textarea name="wash_care" id="wash_care" cols="20" rows="5" class="form-control"
+                                        placeholder="Enter Product description">{{isset($productData->description) ? $productData->description : old("wash_care")}}</textarea>
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label>Product Video</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="product_video"
+                                                id="product_video">
+                                            <label class="custom-file-label" for="customFile">Choose Product
+                                                Video</label>
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -167,9 +270,9 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label>Meta title</label>
-                                    <input type="text" name="category_meta_title" id="category_meta_title"
+                                    <input type="text" name="product_meta_title" id="product_meta_title"
                                         class="form-control" placeholder="Enter Meta Title"
-                                        value="{{isset($categoryData->meta_title) ? $categoryData->meta_title : old("category_meta_title")}}">
+                                        value="{{isset($productData->meta_title) ? $productData->meta_title : old("product_meta_title")}}">
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -178,9 +281,9 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label>Meta Keywords</label>
-                                        <input type="text" name="category_meta_keywords" id="category_meta_keywords"
+                                        <input type="text" name="product_meta_keywords" id="product_meta_keywords"
                                             class="form-control" placeholder="Separate with commas ' , '"
-                                            value="{{isset($categoryData->meta_keywords) ? $categoryData->meta_keywords : old("category_meta_keywords")}}">
+                                            value="{{isset($productData->meta_keywords) ? $productData->meta_keywords : old("product_meta_keywords")}}">
                                     </div>
                                 </div>
                                 <!-- /.form-group -->
@@ -188,9 +291,9 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label>Meta Description</label>
-                                    <textarea name="category_meta_desc" id="category_meta_desc" cols="20" rows="5"
+                                    <textarea name="product_meta_desc" id="product_meta_desc" cols="20" rows="5"
                                         class="form-control"
-                                        placeholder="Enter Category description">{{isset($categoryData->meta_description) ? $categoryData->meta_description : old("category_meta_desc")}}</textarea>
+                                        placeholder="Enter Product description">{{isset($productData->meta_description) ? $productData->meta_description : old("product_meta_desc")}}</textarea>
                                 </div>
                                 <!-- /.form-group -->
                             </div>
