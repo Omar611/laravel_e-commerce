@@ -50,5 +50,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('delete-category-image', 'CategoryController@deleteCategoryImg');
         Route::get('delete-category/{id}', 'CategoryController@deleteCategory');
 
+        // Products
+        Route::get('products', 'ProductController@products');
+
     });
 });
