@@ -118,6 +118,33 @@ $(document).ready(function () {
     });
     // End update Categories status
 
+    // Start update Product status
+    $(".updateProductStatus").click(function () {
+        var status = $(this).text();
+        var product_id = $(this).attr('product_id');
+        console.log(status, product_id);
+        var id = $(this).attr('id');
+        $.ajax({
+            type: "post",
+            url: "/admin/update-product-status",
+            data: {
+                status: status,
+                product_id: product_id
+            },
+            success: function (res) {
+                if (res == 0) {
+                    $("#" + id).text("Inactive").addClass("text-danger").removeClass("text-success");
+                } else {
+                    $("#" + id).text("Active").addClass("text-success").removeClass("text-danger");
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+    // End update Product status
+
     //Initialize Select2 Elements
     $('.select2').select2()
 
