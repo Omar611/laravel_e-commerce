@@ -151,7 +151,7 @@ $(document).ready(function () {
     // End Append Category Level
 
     // Start Delete Category Image
-    if(!$("#old_img").val()){
+    if (!$("#old_img").val()) {
         $("#delete_image").fadeOut(0);
     }
     $("#delete_image").click(function (e) {
@@ -177,4 +177,16 @@ $(document).ready(function () {
         });
     });
     // End Delete Category Image
+
+    // Start Confirm delete
+    $(".confirmDelete").click(function (e) {
+        var name = $(this).attr('name');
+        if (confirm("are you sure you want to delete " + name + " ?")) {
+            return true;
+        }
+        return false;
+
+    });
+
+    // End Confirm delete
 })

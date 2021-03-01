@@ -85,7 +85,7 @@
                                     <td>
                                         <a href="{{url('admin/add-edit-category/' . $category->id)}}">Edit</a>
                                         &nbsp;&nbsp;
-                                        <a class="text-danger" href="{{url('admin/delete-category/' . $category->id)}}">Delete</a>
+                                        <a class="text-danger confirmDelete" name="Category" href="{{url('admin/delete-category/' . $category->id)}}">Delete</a>
                                     </td>
                                     <td>
                                         <a href="javascript:void(0)" id="category-{{$category->id}}"
