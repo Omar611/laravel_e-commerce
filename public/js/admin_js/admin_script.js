@@ -155,35 +155,74 @@ $(document).ready(function () {
         $("#delete_image").fadeOut(0);
     }
     $("#delete_image").click(function (e) {
-        e.preventDefault();
-        var id = $(this).attr('cat-id');
-        var img = $("#old_img").val();
-        $.ajax({
-            type: "post",
-            url: "/admin/delete-category-image",
-            data: {
-                id: id,
-                img: img
-            },
-            success: function (res) {
-                $('#output').attr("src", "");
-                $("#delete_image").fadeOut();
-                $("#deleted_message").text("Image Deleted Successfully").slideDown();
-                $("#old_img").remove();
-            },
-            error: function (err) {
-                console.log(err);
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var id = $(this).attr('cat-id');
+                var img = $("#old_img").val();
+                $.ajax({
+                    type: "post",
+                    url: "/admin/delete-category-image",
+                    data: {
+                        id: id,
+                        img: img
+                    },
+                    success: function (res) {
+                        $('#output').attr("src", "");
+                        $("#delete_image").fadeOut();
+                        $("#deleted_message").text("Image Deleted Successfully").slideDown();
+                        $("#old_img").remove();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
             }
-        });
+        })
+        return false;
     });
     // End Delete Category Image
 
     // Start Confirm delete
+
+    /*     $(".confirmDelete").click(function (e) {
+            var name = $(this).attr('name');
+            if (confirm("are you sure you want to delete " + name + " ?")) {
+                return true;
+            }
+            return false;
+
+        }); */
+
     $(".confirmDelete").click(function (e) {
-        var name = $(this).attr('name');
-        if (confirm("are you sure you want to delete " + name + " ?")) {
-            return true;
-        }
+        var record = $(this).attr('record');
+        var recordid = $(this).attr('recordid');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Swal.fire(
+                //     'Deleted!',
+                //     'Your file has been deleted.',
+                //     'success'
+                // );
+                window.location.href = '/admin/delete-' + record + '/' + recordid;
+            }
+        })
         return false;
 
     });

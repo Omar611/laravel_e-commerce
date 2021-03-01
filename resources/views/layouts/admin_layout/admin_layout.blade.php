@@ -101,6 +101,8 @@
     <script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
     <!-- Select2 -->
     <script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+    {{-- SweetAlert 2 Src --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </body>
 
 </html>
