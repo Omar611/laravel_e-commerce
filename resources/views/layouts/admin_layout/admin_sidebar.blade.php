@@ -81,6 +81,13 @@
                                 <p>Categories</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{url('admin/products')}}"
+                                class="nav-link {{ (request()->is('admin/products')) ? 'active' : '' }}">
+                                <i class="fas fa-box-open"></i>
+                                <p>Products</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
