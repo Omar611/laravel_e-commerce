@@ -87,7 +87,7 @@
                                         &nbsp;&nbsp;
                                         {{-- <a class="text-danger confirmDelete" record="Category" href="{{url('admin/delete-category/' . $category->id)}}">Delete</a>
                                         --}}
-                                        <a href="javascript:void(0)" class="text-danger confirmDelete" record="category"
+                                        <a href="javascript:void(0)" class="confirmDelete" record="category"
                                             recordid="{{$category->id}}">Delete</a>
                                     </td>
                                     <td>
