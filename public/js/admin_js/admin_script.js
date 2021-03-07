@@ -95,7 +95,6 @@ $(document).ready(function () {
     $(".updateCategoryStatus").click(function () {
         var status = $(this).text();
         var category_id = $(this).attr('category_id');
-        console.log(status, category_id);
         var id = $(this).attr('id');
         $.ajax({
             type: "post",
@@ -122,7 +121,6 @@ $(document).ready(function () {
     $(".updateProductStatus").click(function () {
         var status = $(this).text();
         var product_id = $(this).attr('product_id');
-        console.log(status, product_id);
         var id = $(this).attr('id');
         $.ajax({
             type: "post",
@@ -159,7 +157,6 @@ $(document).ready(function () {
                 section_id: section_id,
             },
             success: function (res) {
-                console.log(res);
                 $('#parent_id').html(`<option selected="selected" value="0">Main Category</option>`)
                 res.forEach(cat => {
                     $('#parent_id').append(`<option value="${cat.id}">${cat.category_name}</option>`)
