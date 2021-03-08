@@ -35,14 +35,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Select Category</label>
-                                    <select name="category_id" id="category_id" class="form-control select2"
-                                        style="width: 100%;">
-                                        <option @if (!isset($productData->section_id))
-                                            selected="selected"
-                                            @endif disabled>Select</option>
-                                    </select>
-                                    @error('section_id')
+                                    <label>Product Name</label>
+                                    <input name="product_name" id="product_name" type="text" class="form-control"
+                                        placeholder="Enter Product Name"
+                                        value="{{isset($productData->product_name) ? $productData->product_name : old("product_name")}}">
+                                    @error('product_name')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
                                 </div>
@@ -50,11 +47,24 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Product Name</label>
-                                    <input name="product_name" id="product_name" type="text" class="form-control"
-                                        placeholder="Enter Product Name"
-                                        value="{{isset($productData->product_name) ? $productData->product_name : old("product_name")}}">
-                                    @error('product_name')
+                                    <label>Select Category</label>
+                                    <select name="category_id" id="category_id" class="form-control select2">
+                                        <option @if (!isset($productData->category_id))
+                                            selected="selected"
+                                            @endif disabled>Select</option>
+                                        @foreach ($categories as $section)
+                                        <optgroup label="{{$section->name}}"></optgroup>
+                                        @foreach ($section->categories as $category)
+                                        <option value="{{$category->id}}">&nbsp; --
+                                            <strong>{{$category->category_name}}</strong></option>
+                                        @foreach ($category->subcategories as $subcat)
+                                        <option value="{{$subcat->id}}">&nbsp;&nbsp;&nbsp;&nbsp; -- {{$subcat->category_name}}
+                                        </option>
+                                        @endforeach
+                                        @endforeach
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
                                 </div>
@@ -118,9 +128,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Product Pattern</label>
-                                    <input name="pattern" id="pattern" type="text" class="form-control"
-                                        placeholder="Enter Product Code"
-                                        value="{{isset($productData->pattern) ? $productData->pattern : old("pattern")}}">
+                                    <select name="pattern" id="pattern" class="form-control select2">
+                                        <option @if (!isset($productData->pattern))
+                                            selected="selected"
+                                            @endif disabled>Select</option>
+                                        @foreach ($patternArray as $pattern)
+                                        <option value="{{$pattern}}">{{$pattern}}</option>
+                                        @endforeach
+                                    </select>
                                     @error('pattern')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
@@ -130,9 +145,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Product Fabric</label>
-                                    <input name="fabric" id="fabric" type="text" class="form-control"
-                                        placeholder="Enter Product Fabric"
-                                        value="{{isset($productData->fabric) ? $productData->fabric : old("fabric")}}">
+                                    <select name="fabric" id="fabric" class="form-control select2">
+                                        <option @if (!isset($productData->fabric))
+                                            selected="selected"
+                                            @endif disabled>Select</option>
+                                        @foreach ($fabricArray as $fabric)
+                                        <option value="{{$fabric}}">{{$fabric}}</option>
+                                        @endforeach
+                                    </select>
                                     @error('fabric')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
@@ -146,9 +166,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Product Sleeve</label>
-                                    <input name="sleev" id="sleev" type="text" class="form-control"
-                                        placeholder="Enter Product Code"
-                                        value="{{isset($productData->sleev) ? $productData->sleev : old("sleev")}}">
+                                    <select name="sleev" id="sleev" class="form-control select2">
+                                        <option @if (!isset($productData->sleev))
+                                            selected="selected"
+                                            @endif disabled>Select</option>
+                                        @foreach ($sleevArray as $sleev)
+                                        <option value="{{$sleev}}">{{$sleev}}</option>
+                                        @endforeach
+                                    </select>
                                     @error('sleev')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
@@ -158,9 +183,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Product Fit</label>
-                                    <input name="fit" id="fit" type="text" class="form-control"
-                                        placeholder="Enter Product Fit"
-                                        value="{{isset($productData->fit) ? $productData->fabric : old("fit")}}">
+                                    <select name="fit" id="fit" class="form-control select2">
+                                        <option @if (!isset($productData->fit))
+                                            selected="selected"
+                                            @endif disabled>Select</option>
+                                        @foreach ($fitArray as $fit)
+                                        <option value="{{$fit}}">{{$fit}}</option>
+                                        @endforeach
+                                    </select>
                                     @error('fit')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
@@ -188,9 +218,14 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label>Product Occasion</label>
-                                    <input name="ocasion" id="ocasion" type="text" class="form-control"
-                                        placeholder="Enter Product Occasion"
-                                        value="{{isset($productData->ocasion) ? $productData->fabric : old("ocasion")}}">
+                                    <select name="ocasion" id="ocasion" class="form-control select2">
+                                        <option @if (!isset($productData->ocasion))
+                                            selected="selected"
+                                            @endif disabled>Select</option>
+                                        @foreach ($occasionArray as $ocasion)
+                                        <option value="{{$ocasion}}">{{$ocasion}}</option>
+                                        @endforeach
+                                    </select>
                                     @error('ocasion')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
@@ -300,6 +335,11 @@
                             <!-- /.col -->
                         </div>
                         <!-- /.row -->
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" name="is_featured" id="is_featured"
+                                value="1">
+                            <label for="is_featured" class="custom-control-label">Featured Product</label>
+                        </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
