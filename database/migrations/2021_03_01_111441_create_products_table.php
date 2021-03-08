@@ -36,7 +36,7 @@ class CreateProductsTable extends Migration
             $table->string("meta_title")->nullable();
             $table->text("meta_description")->nullable();
             $table->string("meta_keywords")->nullable();
-            $table->enum("is_featured", ['No', 'Yes']);
+            $table->enum("is_featured", ['Yes', 'No']);
             $table->tinyInteger("status")->default(1);
             $table->timestamps();
         });
