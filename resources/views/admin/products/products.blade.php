@@ -51,6 +51,7 @@
                                     <th>Product Name</th>
                                     <th>Product Code</th>
                                     <th>Product Color</th>
+                                    <th>Product Image</th>
                                     <th>Product Category</th>
                                     <th>Product Section</th>
                                     <th>Action</th>
@@ -64,6 +65,16 @@
                                     <td>{{$product->product_name}}</td>
                                     <td>{{$product->product_code}}</td>
                                     <td>{{$product->product_color}}</td>
+                                    <td>
+                                        @if ($product->main_image &&
+                                        file_exists('images/product/small/'.$product->main_image))
+                                        <img src="{{asset('images/product/small/' .$product->main_image)}}"
+                                            width="100px" alt="" class="d-block mx-auto">
+                                        @else
+                                        <img src="{{asset('images/product/small/small-no-image.jpg')}}" width="100px"
+                                            alt="" class="d-block mx-auto">
+                                        @endif
+                                    </td>
                                     <td>{{$product->category->category_name}}</td>
                                     <td>{{$product->section->name}}</td>
                                     <td>
