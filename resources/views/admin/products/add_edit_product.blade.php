@@ -38,7 +38,8 @@
                                     <label>Product Name</label>
                                     <input name="product_name" id="product_name" type="text" class="form-control"
                                         placeholder="Enter Product Name"
-                                        value="{{isset($productData->product_name) ? $productData->product_name : old("product_name")}}">
+                                        value="{{isset($productData->product_name) ? $productData->product_name : old("product_name")}}"
+                                        required>
                                     @error('product_name')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
@@ -48,7 +49,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Select Category</label>
-                                    <select name="category_id" id="category_id" class="form-control select2">
+                                    <select name="category_id" id="category_id" class="form-control select2" required>
                                         <option @if (!isset($productData->category_id))
                                             selected="selected"
                                             @endif disabled>Select</option>
@@ -58,7 +59,8 @@
                                         <option value="{{$category->id}}">&nbsp; --
                                             <strong>{{$category->category_name}}</strong></option>
                                         @foreach ($category->subcategories as $subcat)
-                                        <option value="{{$subcat->id}}">&nbsp;&nbsp;&nbsp;&nbsp; -- {{$subcat->category_name}}
+                                        <option value="{{$subcat->id}}">&nbsp;&nbsp;&nbsp;&nbsp; --
+                                            {{$subcat->category_name}}
                                         </option>
                                         @endforeach
                                         @endforeach
@@ -77,7 +79,8 @@
                                     <label>Product Code</label>
                                     <input name="product_code" id="product_code" type="text" class="form-control"
                                         placeholder="Enter Product Code"
-                                        value="{{isset($productData->product_code) ? $productData->product_code : old("product_code")}}">
+                                        value="{{isset($productData->product_code) ? $productData->product_code : old("product_code")}}"
+                                        required>
                                     @error('product_code')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
@@ -89,7 +92,8 @@
                                     <label>Product Color</label>
                                     <input name="product_color" id="product_color" type="text" class="form-control"
                                         placeholder="Enter Product Color"
-                                        value="{{isset($productData->product_color) ? $productData->product_color : old("product_color")}}">
+                                        value="{{isset($productData->product_color) ? $productData->product_color : old("product_color")}}"
+                                        required>
                                     @error('product_color')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
@@ -103,9 +107,10 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label>Product Price</label>
-                                    <input ttype="number" min="0" step="0.01" name="product_price" id="product_price"
+                                    <input type="number" min="0" step="0.01" name="product_price" id="product_price"
                                         class="form-control" placeholder="Enter Product Price"
-                                        value="{{isset($productData->price) ? $productData->price : old("product_price")}}">
+                                        value="{{isset($productData->price) ? $productData->price : old("product_price")}}"
+                                        required>
                                     @error('product_price')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
@@ -119,6 +124,9 @@
                                     <input type="number" min="0" step="0.5" name="product_discount"
                                         id="product_discount" class="form-control" placeholder="Enter Product discount"
                                         value="{{isset($productData->product_discount) ? $productData->product_discount : old("product_discount")}}">
+                                    @error('product_discount')
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -183,7 +191,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Product Fit</label>
-                                    <select name="fit" id="fit" class="form-control select2">
+                                    <select name="fit" id="fit" class="form-control select2" required>
                                         <option @if (!isset($productData->fit))
                                             selected="selected"
                                             @endif disabled>Select</option>
@@ -205,9 +213,9 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label>Product Weight</label>
-                                    <input ttype="number" min="0" step="0.01" name="product_weight" id="product_weight"
+                                    <input type="number" min="0" step="0.01" name="product_weight" id="product_weight"
                                         class="form-control" placeholder="Enter Product Weight"
-                                        value="{{isset($productData->price) ? $productData->price : old("product_weight")}}">
+                                        value="{{isset($productData->product_weight) ? $productData->product_weight : old("product_weight")}}">
                                     @error('product_weight')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
@@ -239,8 +247,8 @@
                                 <div class="form-group">
                                     <label>Product Description</label>
                                     <textarea name="product_desc" id="product_desc" cols="20" rows="5"
-                                        class="form-control"
-                                        placeholder="Enter Product description">{{isset($productData->description) ? $productData->description : old("product_desc")}}</textarea>
+                                        class="form-control" placeholder="Enter Product description"
+                                        required>{{isset($productData->description) ? $productData->description : old("product_desc")}}</textarea>
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -250,7 +258,7 @@
                                     <label>Product Image</label>
                                     <div class="custom-file">
                                         <input type="file" accept="image/*" class="custom-file-input"
-                                            name="product_image" id="upload_image" onchange="loadFile(event)">
+                                            name="product_image" id="upload_image">
                                         <label class="custom-file-label" for="customFile">Choose Product
                                             Image</label>
                                         <input type="hidden" id="old_img" name="current_product_image"
@@ -288,9 +296,15 @@
                                         <label>Product Video</label>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="product_video"
-                                                id="product_video">
+                                                id="product_video" accept="video/*">
                                             <label class="custom-file-label" for="customFile">Choose Product
                                                 Video</label>
+                                            <div id="display_vid">
+                                            <video width="400" controls>
+                                                <source src="" id="video_prev">
+                                                Your browser does not support HTML5 video.
+                                            </video>
+                                        </div>
                                         </div>
                                         <!-- /.form-group -->
                                     </div>

@@ -12,3 +12,7 @@ npm-debug.log
 yarn-error.log
 /public/images/admin_images/admin_photos/*
 /public/images/category_images/*
+/public/images/product/large/*
+/public/images/product/medium/*
+/public/images/product/small/*
+/public/videos/product_videos/*

@@ -252,4 +252,16 @@ $(document).ready(function () {
     });
 
     // End Confirm delete
+
+
+    $('#display_vid').fadeOut();
+    $('#product_video').change(function (evt) {
+        var $source = $('#video_prev');
+        $source[0].src = URL.createObjectURL(this.files[0]);
+        $source.parent()[0].load();
+        $('#display_vid').slideDown(1000);
+    })
+
 })
+
+
