@@ -41,16 +41,19 @@ class ProductController extends Controller
         if ($id == null) {
             $title = "Add Product";
             $product = new Product();
+            $message = '"</strong> added successfully';
         } else {
             $title = "Edit Product";
 
+            $productData = Product::find($id);
             $product = Product::find($id);
+            $message = '"</strong> updated successfully';
         }
 
         if ($request->isMethod('POST')) {
             // Validation
             $rules = [
-                'product_name' => 'required|unique:products',
+                'product_name' => 'required',
                 'category_id' => 'required',
                 'product_code' => 'required',
                 'product_color' => 'required',
@@ -126,7 +129,7 @@ class ProductController extends Controller
             $product->status = 1;
             $product->save();
 
-            return redirect('/admin/products')->with('success', 'Product <strong>"' . $request->product_name . '"</strong> added successfully');
+            return redirect('/admin/products')->with('success', 'Product <strong>"' . $request->product_name . $message);
         }
 
         // Filter Array
@@ -140,6 +143,40 @@ class ProductController extends Controller
         $categories = Section::with("categories")->get();
         $categories = json_decode(json_encode($categories));
         // dd($categories);
-        return view('admin.products.add_edit_product', compact("title", 'fabricArray', 'sleevArray', 'patternArray', 'fitArray', 'occasionArray', 'categories'));
+
+        if (isset($productData)) {
+
+            return view('admin.products.add_edit_product', compact("title", 'fabricArray', 'sleevArray', 'patternArray', 'fitArray', 'occasionArray', 'categories', 'productData'));
+        } else {
+
+            return view('admin.products.add_edit_product', compact("title", 'fabricArray', 'sleevArray', 'patternArray', 'fitArray', 'occasionArray', 'categories'));
+        }
+    }
+
+    public function deleteProductImg($id)
+    {
+        $product_image =  Product::find($id);
+        if (file_exists('images/product/small/' . $product_image->main_image)) {
+            unlink('images/product/small/' . $product_image->main_image);
+        }
+        if (file_exists('images/product/medium/' . $product_image->main_image)) {
+            unlink('images/product/medium/' . $product_image->main_image);
+        }
+        if (file_exists('images/product/large/' . $product_image->main_image)) {
+            unlink('images/product/large/' . $product_image->main_image);
+        }
+        $product_image->main_image = "";
+        $product_image->save();
+        return redirect()->back();
+    }
+    public function deleteProductVid($id)
+    {
+        $product_video =  Product::find($id);
+        if (file_exists('videos/product_videos/' . $product_video->main_image)) {
+            unlink('videos/product_videos/' . $product_video->product_video);
+        }
+        $product_video->product_video = "";
+        $product_video->save();
+        return redirect()->back();
     }
 }

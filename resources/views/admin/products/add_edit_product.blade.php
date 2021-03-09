@@ -50,16 +50,24 @@
                                 <div class="form-group">
                                     <label>Select Category</label>
                                     <select name="category_id" id="category_id" class="form-control select2" required>
-                                        <option @if (!isset($productData->category_id))
+                                        <option @if (!isset($productData->category_id) || !$productData->category_id)
                                             selected="selected"
                                             @endif disabled>Select</option>
                                         @foreach ($categories as $section)
                                         <optgroup label="{{$section->name}}"></optgroup>
                                         @foreach ($section->categories as $category)
-                                        <option value="{{$category->id}}">&nbsp; --
+                                        <option @if (isset($productData->category_id) && $productData->category_id ==
+                                            $category->id)
+                                            selected="selected"
+                                            @endif
+                                            value="{{$category->id}}">&nbsp; --
                                             <strong>{{$category->category_name}}</strong></option>
                                         @foreach ($category->subcategories as $subcat)
-                                        <option value="{{$subcat->id}}">&nbsp;&nbsp;&nbsp;&nbsp; --
+                                        <option @if (isset($productData->category_id) && $productData->category_id ==
+                                            $subcat->id)
+                                            selected="selected"
+                                            @endif
+                                            value="{{$subcat->id}}">&nbsp;&nbsp;&nbsp;&nbsp; --
                                             {{$subcat->category_name}}
                                         </option>
                                         @endforeach
@@ -109,7 +117,7 @@
                                     <label>Product Price</label>
                                     <input type="number" min="0" step="0.01" name="product_price" id="product_price"
                                         class="form-control" placeholder="Enter Product Price"
-                                        value="{{isset($productData->price) ? $productData->price : old("product_price")}}"
+                                        value="{{isset($productData->product_price) ? $productData->product_price : old("product_price")}}"
                                         required>
                                     @error('product_price')
                                     <div class="text-danger">{{$message}}</div>
@@ -137,11 +145,15 @@
                                 <div class="form-group">
                                     <label>Product Pattern</label>
                                     <select name="pattern" id="pattern" class="form-control select2">
-                                        <option @if (!isset($productData->pattern))
+                                        <option @if (!isset($productData->pattern) || !$productData->pattern)
                                             selected="selected"
                                             @endif disabled>Select</option>
                                         @foreach ($patternArray as $pattern)
-                                        <option value="{{$pattern}}">{{$pattern}}</option>
+                                        <option @if (isset($productData->pattern) && $productData->pattern ==
+                                            $pattern)
+                                            selected="selected"
+                                            @endif
+                                            value="{{$pattern}}">{{$pattern}}</option>
                                         @endforeach
                                     </select>
                                     @error('pattern')
@@ -154,11 +166,15 @@
                                 <div class="form-group">
                                     <label>Product Fabric</label>
                                     <select name="fabric" id="fabric" class="form-control select2">
-                                        <option @if (!isset($productData->fabric))
+                                        <option @if (!isset($productData->fabric) || !$productData->fabric)
                                             selected="selected"
                                             @endif disabled>Select</option>
                                         @foreach ($fabricArray as $fabric)
-                                        <option value="{{$fabric}}">{{$fabric}}</option>
+                                        <option @if (isset($productData->fabric) && $productData->fabric ==
+                                            $fabric)
+                                            selected="selected"
+                                            @endif
+                                            value="{{$fabric}}">{{$fabric}}</option>
                                         @endforeach
                                     </select>
                                     @error('fabric')
@@ -175,11 +191,15 @@
                                 <div class="form-group">
                                     <label>Product Sleeve</label>
                                     <select name="sleev" id="sleev" class="form-control select2">
-                                        <option @if (!isset($productData->sleev))
+                                        <option @if (!isset($productData->sleev) || !$productData->sleev)
                                             selected="selected"
                                             @endif disabled>Select</option>
                                         @foreach ($sleevArray as $sleev)
-                                        <option value="{{$sleev}}">{{$sleev}}</option>
+                                        <option @if (isset($productData->sleev) && $productData->sleev ==
+                                            $sleev)
+                                            selected="selected"
+                                            @endif
+                                            value="{{$sleev}}">{{$sleev}}</option>
                                         @endforeach
                                     </select>
                                     @error('sleev')
@@ -192,11 +212,13 @@
                                 <div class="form-group">
                                     <label>Product Fit</label>
                                     <select name="fit" id="fit" class="form-control select2" required>
-                                        <option @if (!isset($productData->fit))
+                                        <option @if (!isset($productData->fit) || !$productData->fit)
                                             selected="selected"
                                             @endif disabled>Select</option>
                                         @foreach ($fitArray as $fit)
-                                        <option value="{{$fit}}">{{$fit}}</option>
+                                        <option @if (isset($productData->fit) && $productData->fit == $fit)
+                                            selected="selected"
+                                            @endif value="{{$fit}}">{{$fit}}</option>
                                         @endforeach
                                     </select>
                                     @error('fit')
@@ -227,11 +249,15 @@
                                 <div class="form-group">
                                     <label>Product Occasion</label>
                                     <select name="ocasion" id="ocasion" class="form-control select2">
-                                        <option @if (!isset($productData->ocasion))
+                                        <option @if (!isset($productData->ocasion) || !$productData->ocasion)
                                             selected="selected"
                                             @endif disabled>Select</option>
                                         @foreach ($occasionArray as $ocasion)
-                                        <option value="{{$ocasion}}">{{$ocasion}}</option>
+                                        <option @if (isset($productData->ocasion) && $productData->ocasion ==
+                                            $ocasion)
+                                            selected="selected"
+                                            @endif
+                                            value="{{$ocasion}}">{{$ocasion}}</option>
                                         @endforeach
                                     </select>
                                     @error('ocasion')
@@ -262,17 +288,15 @@
                                         <label class="custom-file-label" for="customFile">Choose Product
                                             Image</label>
                                         <input type="hidden" id="old_img" name="current_product_image"
-                                            value="{{isset($productData->product_image) ? $productData->product_image : ""}}">
+                                            value="{{isset($productData->main_image) ? $productData->main_image : ""}}">
                                     </div>
-                                    <img src="{{isset($productData->product_image) ? asset($productData->product_image) : ""}}"
+                                    <img src="{{isset($productData->main_image) ? asset("images/product/small/".$productData->main_image) : ""}}"
                                         alt="" class="m-3" id="output" width="200px">
-                                    <span>
-                                        <a href="" class="text-danger"
-                                            cat-id="{{isset($productData->id) ? $productData->id : ""}}"
-                                            id="delete_image">Delete
-                                            Image</a>
-                                        <p class="text-success" id="deleted_message" style="display: none"></p>
-                                    </span>
+                                    @if (!empty($productData->main_image))
+                                    <a class="text-danger confirmDelete" record="product-image"
+                                        recordid="{{isset($productData->id) ? $productData->id : ""}}"
+                                        href="javascript(void)">Delete Image</a>
+                                    @endif
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -285,7 +309,7 @@
                                 <div class="form-group">
                                     <label>Product Wash Care</label>
                                     <textarea name="wash_care" id="wash_care" cols="20" rows="5" class="form-control"
-                                        placeholder="Enter Product description">{{isset($productData->description) ? $productData->description : old("wash_care")}}</textarea>
+                                        placeholder="Enter Product wash care">{{isset($productData->wash_care) ? $productData->wash_care : old("wash_care")}}</textarea>
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -299,70 +323,80 @@
                                                 id="product_video" accept="video/*">
                                             <label class="custom-file-label" for="customFile">Choose Product
                                                 Video</label>
-                                            <div id="display_vid">
-                                            <video width="400" controls>
-                                                <source src="" id="video_prev">
-                                                Your browser does not support HTML5 video.
-                                            </video>
+                                            <div id="display_vid" class="m-2">
+                                            </div>
                                         </div>
-                                        </div>
-                                        <!-- /.form-group -->
+                                        <video width="200" class="m-3" controls>
+                                            <source
+                                                src="{{!empty($productData->product_video) ? asset("videos/product_videos/".$productData->product_video) : ""}}"
+                                                id="video_prev">
+                                            Your browser does not support HTML5 video.
+                                        </video>
+                                        @if (!empty($productData->product_video))
+                                        <a class="text-danger confirmDelete" record="product-video"
+                                            recordid="{{isset($productData->id) ? $productData->id : ""}}"
+                                            href="javascript(void)">Delete video</a>
+                                        @endif
                                     </div>
+                                    <!-- /.form-group -->
                                 </div>
-                                <!-- /.form-group -->
                             </div>
-                            <!-- /.col -->
+                            <!-- /.form-group -->
                         </div>
-                        <!-- /.row -->
-                        <h5>----- Meta Data For SEO ----- </h5>
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label>Meta title</label>
-                                    <input type="text" name="product_meta_title" id="product_meta_title"
-                                        class="form-control" placeholder="Enter Meta Title"
-                                        value="{{isset($productData->meta_title) ? $productData->meta_title : old("product_meta_title")}}">
-                                </div>
-                                <!-- /.form-group -->
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <div class="form-group">
-                                        <label>Meta Keywords</label>
-                                        <input type="text" name="product_meta_keywords" id="product_meta_keywords"
-                                            class="form-control" placeholder="Separate with commas ' , '"
-                                            value="{{isset($productData->meta_keywords) ? $productData->meta_keywords : old("product_meta_keywords")}}">
-                                    </div>
-                                </div>
-                                <!-- /.form-group -->
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label>Meta Description</label>
-                                    <textarea name="product_meta_desc" id="product_meta_desc" cols="20" rows="5"
-                                        class="form-control"
-                                        placeholder="Enter Product description">{{isset($productData->meta_description) ? $productData->meta_description : old("product_meta_desc")}}</textarea>
-                                </div>
-                                <!-- /.form-group -->
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" name="is_featured" id="is_featured"
-                                value="1">
-                            <label for="is_featured" class="custom-control-label">Featured Product</label>
-                        </div>
+                        <!-- /.col -->
                     </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button class="btn btn-primary">Submit</button>
+                    <!-- /.row -->
+                    <h5>----- Meta Data For SEO ----- </h5>
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Meta title</label>
+                                <input type="text" name="product_meta_title" id="product_meta_title"
+                                    class="form-control" placeholder="Enter Meta Title"
+                                    value="{{isset($productData->meta_title) ? $productData->meta_title : old("product_meta_title")}}">
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Meta Keywords</label>
+                                    <input type="text" name="product_meta_keywords" id="product_meta_keywords"
+                                        class="form-control" placeholder="Separate with commas ' , '"
+                                        value="{{isset($productData->meta_keywords) ? $productData->meta_keywords : old("product_meta_keywords")}}">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Meta Description</label>
+                                <textarea name="product_meta_desc" id="product_meta_desc" cols="20" rows="5"
+                                    class="form-control"
+                                    placeholder="Enter Product description">{{isset($productData->meta_description) ? $productData->meta_description : old("product_meta_desc")}}</textarea>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" name="is_featured" id="is_featured"
+                            value="1" @if (isset($productData->is_featured) && $productData->is_featured=='Yes')
+                        checked
+                        @endif>
+                        <label for="is_featured" class="custom-control-label">Featured Product</label>
                     </div>
                 </div>
-            </form>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <button class="btn btn-primary">Submit</button>
+                </div>
         </div>
-        <!-- /.card -->
+        </form>
+</div>
+<!-- /.card -->
 </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->

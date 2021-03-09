@@ -239,11 +239,11 @@ $(document).ready(function () {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Swal.fire(
-                //     'Deleted!',
-                //     'Your file has been deleted.',
-                //     'success'
-                // );
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                );
                 window.location.href = '/admin/delete-' + record + '/' + recordid;
             }
         })
@@ -253,14 +253,17 @@ $(document).ready(function () {
 
     // End Confirm delete
 
-
-    $('#display_vid').fadeOut();
+    // Start Preview Product video
+    if($('#video_prev').attr('src') == ""){
+        $('#display_vid').fadeOut();
+    }
     $('#product_video').change(function (evt) {
         var $source = $('#video_prev');
         $source[0].src = URL.createObjectURL(this.files[0]);
         $source.parent()[0].load();
         $('#display_vid').slideDown(1000);
     })
+    // End Preview Product video
 
 })
 
