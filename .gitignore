@@ -15,4 +15,10 @@ yarn-error.log
 /public/images/product/large/*
 /public/images/product/medium/*
 /public/images/product/small/*
-/public/videos/product_videos/*
+/public/videos/product_videos/
+!/public/images/admin_images/admin_photos/.gitkeep
+!/public/images/category_images/.gitkeep
+!/public/images/product/large/.gitkeep
+!/public/images/product/medium/.gitkeep
+!/public/images/product/small/.gitkeep
+!/public/videos/product_videos.gitkeep
