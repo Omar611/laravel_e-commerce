@@ -77,11 +77,13 @@
                                     </td>
                                     <td>{{$product->category->category_name}}</td>
                                     <td>{{$product->section->name}}</td>
-                                    <td>
-                                        <a href="{{url('admin/add-edit-product/' . $product->id)}}">Edit</a>
+                                    <td class="text-center">
+                                        <a href="{{url('admin/add-attribute/' . $product->id)}}"><i class="fas fa-plus"></i></a>
+                                        &nbsp;&nbsp;
+                                        <a href="{{url('admin/add-edit-product/' . $product->id)}}"><i class="fas fa-edit"></i></a>
                                         &nbsp;&nbsp;
                                         <a href="javascript:void(0)" class="confirmDelete" record="product"
-                                            recordid="{{$product->id}}">Delete</a>
+                                            recordid="{{$product->id}}"><i class="fas fa-trash"></i></a>
                                     </td>
                                     <td>
                                         <a href="javascript:void(0)" id="product-{{$product->id}}"

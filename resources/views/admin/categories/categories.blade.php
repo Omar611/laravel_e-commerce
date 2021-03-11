@@ -82,13 +82,13 @@
                                     {{-- <td>{{$category->meta_title}}</td>
                                     <td>{{$category->meta_description}}</td>
                                     <td>{{$category->meta_keywords}}</td> --}}
-                                    <td>
-                                        <a href="{{url('admin/add-edit-category/' . $category->id)}}">Edit</a>
+                                    <td  class="text-center">
+                                        <a href="{{url('admin/add-edit-category/' . $category->id)}}"><i class="fas fa-edit"></i></a>
                                         &nbsp;&nbsp;
                                         {{-- <a class="text-danger confirmDelete" record="Category" href="{{url('admin/delete-category/' . $category->id)}}">Delete</a>
                                         --}}
                                         <a href="javascript:void(0)" class="class="m-3"" record="category"
-                                            recordid="{{$category->id}}">Delete</a>
+                                            recordid="{{$category->id}}"><i class="fas fa-trash"></i></a>
                                     </td>
                                     <td>
                                         <a href="javascript:void(0)" id="category-{{$category->id}}"
