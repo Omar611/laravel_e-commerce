@@ -344,7 +344,6 @@
                             <!-- /.form-group -->
                         </div>
                         <!-- /.col -->
-                    </div>
                     <!-- /.row -->
                     <h5>----- Meta Data For SEO ----- </h5>
                     <div class="row">
