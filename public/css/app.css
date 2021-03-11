@@ -10944,7 +10944,7 @@ a.text-dark:focus {
   }
 }
 
-.confirmDelete {
+#productForm .confirmDelete {
   float: right;
   margin: 2em;
   font-weight: 600;
